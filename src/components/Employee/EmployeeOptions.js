@@ -1,43 +1,61 @@
-// EmployeeOptions.js
+// ... (other imports and code)
 import React, { useState } from 'react';
 import '../../css/Employee/EmployeeOptions.css';
-import AddInterview from './AddInterview'; // Import the renamed modal component
-import AddAttendance from './AddAttendance'; // Import the AddAttendance modal component
+import AddInterview from './AddInterview';
+import AddSubmission from './AddSubmission';
+import AddAttendance from './AddAttendance';
 
 const EmployeeOptions = () => {
-  const [selectedOption, setSelectedOption] = useState(null); // Track the selected option
-  const [isModalOpen, setIsModalOpen] = useState(false); // Track the visibility of the modal
-  const [isAttendanceModalOpen, setIsAttendanceModalOpen] = useState(false); // Track the visibility of the attendance modal
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isInterviewModalOpen, setIsInterviewModalOpen] = useState(false);
+  const [isSubmissionModalOpen, setIsSubmissionModalOpen] = useState(false);
+  const [isAttendanceModalOpen, setIsAttendanceModalOpen] = useState(false);
 
-  const options = ['Option 1', 'Option 2', 'Add Interview', 'Add Attendance', 'Option 5', 'Option 6'];
+  const options = ['Option 1', 'Add Submission', 'Add Interview', 'Add Attendance', 'Option 5', 'Option 6'];
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
+
     if (option === 'Add Interview') {
-      setIsModalOpen(true); // Open the modal when "Add Interview" option is clicked
+      setIsInterviewModalOpen(true);
+      setIsSubmissionModalOpen(false); // Close submission modal if open
+      setIsAttendanceModalOpen(false); // Close attendance modal if open
+    } else if (option === 'Add Submission') {
+      setIsSubmissionModalOpen(true);
+      setIsInterviewModalOpen(false); // Close interview modal if open
+      setIsAttendanceModalOpen(false); // Close attendance modal if open
     } else if (option === 'Add Attendance') {
-      setIsAttendanceModalOpen(true); // Open the attendance modal when "Add Attendance" option is clicked
+      setIsAttendanceModalOpen(true);
+      setIsInterviewModalOpen(false); // Close interview modal if open
+      setIsSubmissionModalOpen(false); // Close submission modal if open
     }
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false); // Close the modal
+  const handleCloseInterviewModal = () => {
+    setIsInterviewModalOpen(false);
+  };
+
+  const handleCloseSubmissionModal = () => {
+    setIsSubmissionModalOpen(false);
   };
 
   const handleCloseAttendanceModal = () => {
-    setIsAttendanceModalOpen(false); // Close the attendance modal
+    setIsAttendanceModalOpen(false);
   };
 
-  const handleSubmitForm = (formData) => {
-    // Handle the form submission data here
-    console.log('Submitted data:', formData);
-    setIsModalOpen(false); // Close the modal after submission
+  const handleSubmitInterviewForm = (formData) => {
+    console.log('Interview data:', formData);
+    setIsInterviewModalOpen(false);
+  };
+
+  const handleSubmitSubmissionForm = (formData) => {
+    console.log('Submission data:', formData);
+    setIsSubmissionModalOpen(false);
   };
 
   const handleSubmitAttendanceForm = (attendanceReason) => {
-    // Handle the attendance form submission data here
     console.log('Attendance Reason:', attendanceReason);
-    setIsAttendanceModalOpen(false); // Close the attendance modal after submission
+    setIsAttendanceModalOpen(false);
   };
 
   return (
@@ -47,16 +65,18 @@ const EmployeeOptions = () => {
           {option}
         </div>
       ))}
-      {/* Modal for submission form */}
-      <AddInterview isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmitForm}>
-        <h2>Submit Data for {selectedOption}</h2>
-        {/* Include your submission form fields here */}
-        <form onSubmit={(e) => handleSubmitForm(e.target.elements)}>
-          {/* Example input field */}
-          <input type="text" placeholder="Enter data" />
-          <button type="submit">Submit</button>
-        </form>
+      {/* Modal for interview form */}
+      <AddInterview isOpen={isInterviewModalOpen} onClose={handleCloseInterviewModal} onSubmit={handleSubmitInterviewForm}>
+        {/* Interview form content */}
       </AddInterview>
+
+      {/* Modal for submission form */}
+      {isSubmissionModalOpen && (
+        <AddSubmission onClose={handleCloseSubmissionModal} onSubmit={handleSubmitSubmissionForm}>
+          {/* Submission form content */}
+        </AddSubmission>
+      )}
+
       {/* Modal for attendance form */}
       <AddAttendance isOpen={isAttendanceModalOpen} onClose={handleCloseAttendanceModal} onSubmit={handleSubmitAttendanceForm} />
     </div>

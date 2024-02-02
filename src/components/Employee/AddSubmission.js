@@ -1,8 +1,9 @@
 // AddSubmission.js
 
 import React, { useState } from 'react';
-import './Employee/AddSubmission.css'; // Import the CSS file for styling
-import AddSubmission from '../Components/admin/Employee/AddSubmission';
+import '../../css/Employee/AddSubmission.css'; 
+//import './Employee/AddSubmission.css'; // Import the CSS file for styling
+//import AddSubmission from '../Components/admin/Employee/AddSubmission';
 
 
 const AddSubmission = ({ onClose, onSubmit }) => {
