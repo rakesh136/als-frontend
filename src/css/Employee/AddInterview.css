@@ -72,7 +72,7 @@ button[type='submit'] {
 }
 
 button[type='submit']:hover {
-  background-color: #00b312;
+  background-color: hsl(116, 73%, 47%);
 }
 
 /* Increase the width of the select element */

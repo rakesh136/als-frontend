@@ -1,4 +1,4 @@
-/* AddAttendance.css */
+/* AddAttendance.css
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -11,6 +11,7 @@
     justify-content: center;
     align-items: center;
   }
+  
   
   .attendance-modal {
     width: 80%;
@@ -58,5 +59,101 @@
   
   /* AddAttendance.css */
 
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(89, 84, 84, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .attendance-modal {
+    animation: slideIn 0.3s ease-in-out;
 
+    background-color: #f4dbdb;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 60px;
+    position: relative;
+    width: 500px;
+  }
+  @keyframes slideIn {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .close-btn {
+    transition: transform 0.2s ease-in-out;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .close-btn:active {
+    transform: rotate(90deg);
+  }
+
+
+  
+  .attendance-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    
+  }
+
+  
+  
+  .date-time {
+    flex: 1;
+    margin-right: 1px;
+  }
+  
+  .availability {
+    flex: 1;
+    margin-right: 50px;
+  }
+  
+  
+  .attendance-reason {
+    margin-top: 10px;
+    width: 100%;
+   
+  }
+  input[type="text"] {
+    width: 100%;
+    height:80px;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #cb8e8e;
+    border-radius: 7px;
+  }
+  .submit-btn {
+   
+    background-color: hwb(133 12% 24%);
+    border: none;
+    width:100%;
+    border-radius: 5px;
+    color: hsl(0, 3%, 92%);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: background-color 0.2s ease-in-out;
+   
+  } 
+  
+  .submit-btn:hover {
+    background-color: rgb(225, 111, 111);
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
   

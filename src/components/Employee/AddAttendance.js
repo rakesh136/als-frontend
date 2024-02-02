@@ -7,8 +7,10 @@ const AddAttendance = ({ isOpen, onClose, onSubmit }) => {
   const [attendanceStatus, setAttendanceStatus] = useState('');
   const [selectedOption, setSelectedOption] = useState(null);
 
-  const handleMarkAttendance = () => {
-    setSelectedOption('Mark My Attendance');
+  const currentDateAndTime = new Date().toLocaleString();
+
+  const handlePresent = () => {
+    setSelectedOption('Present');
     const now = new Date();
     const formattedDateTime = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
     setAttendanceStatus(formattedDateTime);
@@ -35,45 +37,58 @@ const AddAttendance = ({ isOpen, onClose, onSubmit }) => {
           <span className="close-btn" onClick={onClose}>
             &times;
           </span>
-          <h2>Mark Attendance</h2>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <input
-                type="radio"
-                id="markAttendance"
-                name="attendanceOption"
-                value="Mark My Attendance"
-                onChange={handleMarkAttendance}
-                checked={selectedOption === 'Mark My Attendance'}
-              />
-              <label htmlFor="markAttendance">Mark My Attendance</label>
+          <div className="attendance-container">
+            <div className="date-time">
+              <h3>Current Date and Time:</h3>
+              <p2>{currentDateAndTime}</p2>
             </div>
-            <div>
-              <input
-                type="radio"
-                id="notAvailable"
-                name="attendanceOption"
-                value="Not Available"
-                onChange={handleNotAvailable}
-                checked={selectedOption === 'Not Available'}
-              />
-              <label htmlFor="notAvailable">Not Available</label>
-            </div>
-            {selectedOption === 'Mark My Attendance' && <p>Date and Time: {attendanceStatus}</p>}
-            {selectedOption === 'Not Available' && (
-              <div className="attendance-reason">
-                <label htmlFor="reason">Reason:</label>
+
+
+
+
+            <div className="availability">
+              <h3>Availability:</h3>
+              <div>
                 <input
-                  type="text"
-                  id="reason"
-                  value={attendanceReason}
-                  onChange={(e) => setAttendanceReason(e.target.value)}
-                  required
+                  type="radio"
+                  id="present"
+                  name="attendanceOption"
+                  value="Present"
+                  onChange={handlePresent}
+                  checked={selectedOption === 'Present'}
                 />
+                <label htmlFor="present">Present</label>
               </div>
-            )}
-            <button type="submit">Submit</button>
-          </form>
+              <div>
+                <input
+                  type="radio"
+                  id="not-available"
+                  name="attendanceOption"
+                  value="Not Available"
+                  onChange={handleNotAvailable}
+                  checked={selectedOption === 'Not Available'}
+                />
+                <label htmlFor="not-available">Not Available</label>
+              </div>
+              {selectedOption === 'Not Available' && (
+                <div className="attendance-reason">
+                  <label htmlFor="reason">Reason If Not Available:</label>
+                  <input
+                    type="text"
+                    id="reason"
+                    aria-label="With textarea"
+                    value={attendanceReason}
+                    onChange={(e) => setAttendanceReason(e.target.value)}
+                    required
+                   rows="4"
+                   cols="50"
+                   resize="vertical"
+                  /><br/>
+                </div>
+              )}
+            </div>
+          </div>
+          <button type="submit" className="submit-btn" onClick={handleSubmit}>Submit</button>
         </div>
       </div>
     )
